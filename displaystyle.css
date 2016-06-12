@@ -1,0 +1,108 @@
+html {
+
+  background: url(apps/picture/background-home.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+body{
+  margin: 0;
+}
+
+h2{
+  color: white;
+  font-family: cursive;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+p {
+  color: white;
+  text-align: justify;
+  word-wrap: break-word;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container-grid{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  margin: 0 auto 0 auto;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+.container{
+   margin: auto;
+   width: 60%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.container-right{
+  width: 20%;
+  height: 100%;
+  right: 0px;
+  padding-left: 10px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.container-left{
+  width: 20%;
+  height: 100%;
+  left: 0px;
+  padding-left: 10px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.middle-align{
+   position: absolute;               /* 2 */
+   top: 50%;                         /* 3 */
+   transform: translate(0, -50%) }   /* 4 */
+}
+
+
+
+.container-fill{
+  padding: 20px 40px;
+}
+
+.button-play{
+  position: relative;
+      top : 50px;
+      left: 50%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-family: cursive;
+    font-weight: bold;
+    color: red;
+    border-radius: 50px;
+    border: 3px solid red;
+    background-color: #f6c9c9;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 40px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button-play:hover{
+    color: #f6c9c9;
+    border: 3px solid #f6c9c9;
+    background-color: red;
+}

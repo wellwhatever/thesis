@@ -1,0 +1,19 @@
+Apa saja yang diedit?
+1. Mengubah bentuk energizer :
+    - ada di file renderer.js : search 'mengganti bentuk'
+2. Mengubah ghost agar tidak berubah saat energizer kemakan
+    - ada di file Ghost.js : search 'ghostnya takut'
+3. Mengganti warna background :
+    - file renderer.js : search 'warna background'
+    - file renderer.js : search 'pallet kemakan'
+4. Membuat side pic :
+    - file debug.htm + index.htm
+5. Mengganti warna ghost :
+    - file atlas.js : 'warna ghost'
+6. Mengganti warna pacman :
+    - file sprites.js : 'draw pacman body'
+7. Modif game over state :
+    - cari : game over state
+      ganti dengan seperti di gameover.js
+    - cari : 'state == playState ||'
+      hapus 'state == overState'

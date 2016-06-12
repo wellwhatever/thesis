@@ -1,0 +1,40 @@
+.container {
+    width:100%;
+    background: #000;
+}
+@font-face {
+    font-family: 'ArcadeR';
+    src: url('font/ARCADE_R.TTF');
+    /*
+    src: url('font/PressStart2P.ttf');
+    */
+}
+#canvas-warning {
+    color: #FF0;
+    font-size: 1.5em;
+}
+.img-left{
+  height: 100%;
+  width: auto;
+
+  position: absolute;
+
+  left: 0px;
+}
+
+.img-right{
+  height: 100%;
+  width: auto;
+
+  position: absolute;
+
+  right: 0px;
+}
+
+.img-logo{
+  width: 250px;
+  position: absolute;
+  padding-left: 30px;
+  padding-top: 400px;
+  display: block;
+}
