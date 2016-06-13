@@ -27,7 +27,7 @@
 //   so it may be phased out in future JS versions.  It's not even supported in Internet Explorer.
 //
 //  Object.create does everything that I would use a mutable __proto__ for, but this isn't implemented everywhere yet.
-//
+// 
 //  So instead of the following:
 //
 //      var obj = {
@@ -88,7 +88,7 @@ var gameMode = GAME_PACMAN;
 var getGameName = (function(){
 
     var names = ["PAC-MAN", "MS PAC-MAN", "COOKIE-MAN","CRAZY OTTO"];
-
+    
     return function(mode) {
         if (mode == undefined) {
             mode = gameMode;
@@ -144,7 +144,7 @@ var getGameDescription = (function(){
             "SHAUN WILLIAMS",
         ],
     ];
-
+    
     return function(mode) {
         if (mode == undefined) {
             mode = gameMode;
@@ -480,7 +480,7 @@ var Map = function(numCols, numRows, tiles) {
     // ghost home location
     this.doorTile = {x:13, y:14};
     this.doorPixel = {
-        x:(this.doorTile.x+1)*tileSize-1,
+        x:(this.doorTile.x+1)*tileSize-1, 
         y:this.doorTile.y*tileSize + midTile.y
     };
     this.homeTopPixel = 17*tileSize;
@@ -624,12 +624,12 @@ Map.prototype.parseWalls = function() {
 
            Since we parse the tiles in row major order, we will always start
            walking along the wall at the leftmost tile of its topmost row.  We
-           then proceed walking to the right.
+           then proceed walking to the right.  
 
            When facing the direction of the walk at each tile, the outline will
            hug the left side of the tile unless there is a walkable tile to the
            left.  In that case, there will be a padding distance applied.
-
+           
         */
         var getStartPoint = function(tx,ty,dirEnum) {
             var dir = {};
@@ -649,7 +649,7 @@ Map.prototype.parseWalls = function() {
             };
         };
         while (true) {
-
+            
             visited[toIndex(tx,ty)] = true;
 
             // determine start point
@@ -758,7 +758,7 @@ Map.prototype.allDotsEaten = function() {
 
 // create a record of tunnel locations
 Map.prototype.parseTunnels = (function(){
-
+    
     // starting from x,y and increment x by dx...
     // determine where the tunnel entrance begins
     var getTunnelEntrance = function(x,y,dx) {
@@ -799,7 +799,7 @@ Map.prototype.teleport = function(actor){
 };
 
 Map.prototype.posToIndex = function(x,y) {
-    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows)
+    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows) 
         return x+y*this.numCols;
 };
 
@@ -812,7 +812,7 @@ Map.prototype.isTunnelTile = function(x,y) {
 // retrieves tile character at given coordinate
 // extended to include offscreen tunnel space
 Map.prototype.getTile = function(x,y) {
-    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows)
+    if (x>=0 && x<this.numCols && y>=0 && y<this.numRows) 
         return this.currentTiles[this.posToIndex(x,y)];
     if ((x<0 || x>=this.numCols) && (this.isTunnelTile(x,y-1) || this.isTunnelTile(x,y+1)))
         return '|';
@@ -1109,7 +1109,7 @@ var mapgen = (function(){
 
             // examine an adjacent empty cell
             if (cell.next[i] && !cell.next[i].filled) {
-
+                
                 // only open if the cell to the left of it is filled
                 if (cell.next[i].next[LEFT] && !cell.next[i].next[LEFT].filled) {
                 }
@@ -1140,7 +1140,7 @@ var mapgen = (function(){
         };
 
         var gen = function() {
-
+        
             var cell;      // cell at the center of growth (open cells are chosen around this cell)
             var newCell;   // most recent cell filled
             var firstCell; // the starting cell of the current group
@@ -1324,7 +1324,7 @@ var mapgen = (function(){
                                     }
                                     c.connect[RIGHT] = c.next[DOWN].connect[RIGHT] = true;
                                 }
-
+                                
                             }
                             else if (size == 3 || size == 4) {
 
@@ -1404,7 +1404,7 @@ var mapgen = (function(){
 
                 //  _
                 // |_
-                //
+                // 
                 // or
                 //  _
                 //  _|
@@ -1504,7 +1504,7 @@ var mapgen = (function(){
                 for (y0=y; y0>=0; y0--) {
                     c = cells[x+y0*cols];
                     c2 = c.next[RIGHT]
-                    if ((!c.connect[UP] || cellIsCrossCenter(c)) &&
+                    if ((!c.connect[UP] || cellIsCrossCenter(c)) && 
                         (!c2.connect[UP] || cellIsCrossCenter(c2))) {
                         break;
                     }
@@ -1575,7 +1575,7 @@ var mapgen = (function(){
             var isHori = function(x,y) {
                 var q1 = cells[x+y*cols].connect;
                 var q2 = cells[x+1+y*cols].connect;
-                return !q1[UP] && !q1[DOWN] && (x==0 || !q1[LEFT]) && q1[RIGHT] &&
+                return !q1[UP] && !q1[DOWN] && (x==0 || !q1[LEFT]) && q1[RIGHT] && 
                        !q2[UP] && !q2[DOWN] && q2[LEFT] && !q2[RIGHT];
             };
             var isVert = function(x,y) {
@@ -1586,7 +1586,7 @@ var mapgen = (function(){
                     return !q1[LEFT] && !q1[UP] && !q1[DOWN] &&
                            !q2[LEFT] && !q2[UP] && !q2[DOWN];
                 }
-                return !q1[LEFT] && !q1[RIGHT] && !q1[UP] && q1[DOWN] &&
+                return !q1[LEFT] && !q1[RIGHT] && !q1[UP] && q1[DOWN] && 
                        !q2[LEFT] && !q2[RIGHT] && q2[UP] && !q2[DOWN];
             };
             var x,y;
@@ -2283,7 +2283,7 @@ var mapgen = (function(){
             for (i=0; i<28*36; i++) {
                 d = graph[i];
                 if (d && !d.completed) {
-                    if (d.dist < min_dist) {
+                    if (d.dist < min_dist) { 
                         next_node = d;
                         min_dist = d.dist;
                     }
@@ -3183,6 +3183,11 @@ var initRenderer = function(){
 
         clearMapFrame: function() {
             ctx.fillStyle = "#000";
+            ctx.fillRect(-1,-1,mapWidth+1,mapHeight+1);
+        },
+
+        clearScreen: function() {
+            ctx.fillStyle = "rgba(0,0,0,0.2)";//rgba(250,229,229,0.8)
             ctx.fillRect(-1,-1,mapWidth+1,mapHeight+1);
         },
 
@@ -5319,7 +5324,7 @@ var drawPacPoints = (function(){
         draw0(-1,-3);
         draw0(4,-3);
     };
-
+    
     var draw400 = function() {
         draw4(-7,-3);
         draw0(-1,-3);
@@ -5350,7 +5355,7 @@ var drawPacPoints = (function(){
         draw0(1,-3);
         draw0(6,-3);
     };
-
+    
     var draw1600 = function() {
         draw1narrow(-7,-3);
         draw6(-5,-3);
@@ -5728,7 +5733,7 @@ var drawMonsterSprite = (function(){
         ctx.translate(1,0);
         drawRight0();
     };
-
+    
     var drawLeft1 = function() {
         ctx.scale(-1,1);
         ctx.translate(1,0);
@@ -7579,7 +7584,7 @@ Actor.prototype.update = function(j) {
 
     // get number of steps to advance in this frame
     var numSteps = this.getNumSteps();
-    if (j >= numSteps)
+    if (j >= numSteps) 
         return;
 
     // request to advance one step, and increment count if step taken
@@ -8122,7 +8127,7 @@ Player.prototype.getAnimFrame = function(frame) {
             frame = 1; // hack to force this frame when dead
     }
     if (gameMode != GAME_OTTO) {
-        if (frame == 3)
+        if (frame == 3) 
             frame = 1;
     }
     return frame;
@@ -8634,7 +8639,7 @@ var ghostCommander = (function() {
     return {
         save: save,
         load: load,
-        reset: function() {
+        reset: function() { 
             command = GHOST_CMD_SCATTER;
             frame = 0;
         },
@@ -8651,7 +8656,7 @@ var ghostCommander = (function() {
             }
         },
         getCommand: function() {
-            return command;
+            return command; 
         },
         setCommand: function(cmd) {
             command = cmd;
@@ -9066,7 +9071,7 @@ var PacFruit = function() {
 
     this.order = [
         0,  // level 1
-        1,  // level 2
+        1,  // level 2 
         2,  // level 3
         2,  // level 4
         3,  // level 5
@@ -9317,7 +9322,7 @@ MsPacFruit.prototype = newChildObject(BaseFruit.prototype, {
         }
         this.pathMode =     this.savedPathMode[t];
         this.frame =        this.savedFrame[t];
-        this.numFrames =    this.savedNumFrames[t];
+        this.numFrames =    this.savedNumFrames[t]; 
         this.path =         this.savedPath[t];
     },
 });
@@ -9360,7 +9365,7 @@ var executive = (function(){
             window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
                                        || window[vendors[x]+'CancelRequestAnimationFrame'];
         }
-
+     
         if (!window.requestAnimationFrame)
             window.requestAnimationFrame = function(callback, element) {
                 var currTime = new Date().getTime();
@@ -9370,7 +9375,7 @@ var executive = (function(){
                 lastTime = currTime + timeToCall;
                 return id;
             };
-
+     
         if (!window.cancelAnimationFrame)
             window.cancelAnimationFrame = function(id) {
                 clearTimeout(id);
@@ -9406,7 +9411,7 @@ var executive = (function(){
             fps = frames / seconds;
         };
     })();
-
+        
 
     var reqFrame; // id of requestAnimationFrame object
     var tick = function(now) {
@@ -11088,6 +11093,7 @@ var finishState = (function(){
 ////////////////////////////////////////////////////
 // Game Over state
 // (state when player has lost last life)
+
 var overState = (function() {
 
     var exitTo = function(s,fade) {
@@ -11100,10 +11106,8 @@ var overState = (function() {
     menu.addSpacer(0.5);
     menu.addTextButton("CLICK TO FILL SURVEY",
         function() {
-            practiceMode = false;
-            turboMode = false;
-            newGameState.setStartLevel(1);
-            var win = window.open('https://docs.google.com/forms/d/1HLtITlVF_aFJToT6C20DyOU_WNiZMY2f3pSL-2i37Wc/viewform?edit_requested=true','L2');
+            var win = window.open('https://docs.google.com/forms/d/1HLtITlVF_aFJToT6C20DyOU_WNiZMY2f3pSL-2i37Wc/viewform?edit_requested=true','Form survey L2');
+            //var win = window.open('https://docs.google.com/forms/d/1yMa4O31tzpP5RHou8vib6h6gmZ8s7LT5p-NKXPJ3KJU/viewform?edit_requested=true','Form Survey L1');
         });
     menu.addSpacer(0.5);
     menu.addTextButton("PLAY AGAIN",
@@ -11128,8 +11132,6 @@ var overState = (function() {
         },
     };
 })();
-
-
 //@line 1 "src/input.js"
 //////////////////////////////////////////////////////////////////////////////////////
 // Input
@@ -11291,7 +11293,7 @@ var overState = (function() {
 
     // Skip Level
     var canSkip = function() {
-        return isPracticeMode() &&
+        return isPracticeMode() && 
             (state == newGameState ||
             state == readyNewState ||
             state == readyRestartState ||
@@ -11338,7 +11340,7 @@ var initSwipe = function() {
 
     // minimum distance from anchor before direction is registered
     var r = 4;
-
+    
     var touchStart = function(event) {
         event.preventDefault();
         var fingerCount = event.touches.length;
@@ -11397,7 +11399,7 @@ var initSwipe = function() {
         // tap to clear input directions
         pacman.clearInputDir(undefined);
     };
-
+    
     // register touch events
     document.onclick = touchTap;
     document.ontouchstart = touchStart;
@@ -11619,7 +11621,7 @@ var mspacmanCutscene1 = (function() {
             pac.setDir(DIR_RIGHT);
             mspac.setPos(232, 180);
             mspac.setDir(DIR_LEFT);
-
+            
             // initial ghost states
             inky.frames = 0;
             inky.mode = GHOST_OUTSIDE;
@@ -11712,7 +11714,7 @@ var mspacmanCutscene1 = (function() {
                 var PLAYER_RAMP = 1;
                 var PLAYER_CLIMB = 2;
                 var PLAYER_MEET = 3;
-
+                     
                 return {
                     init: function() {
                         // reset frames
@@ -11941,7 +11943,7 @@ var mspacmanCutscene2 = (function() {
             // set steering functions
             pac.steer = function(){};
             mspac.steer = function(){};
-
+            
             backupCheats();
             clearCheats();
         },
@@ -12236,7 +12238,7 @@ var cookieCutscene2 = (function() {
             pac.setDir(DIR_RIGHT);
             mspac.setPos(232, 180);
             mspac.setDir(DIR_LEFT);
-
+            
             // initial ghost states
             inky.frames = 0;
             inky.mode = GHOST_OUTSIDE;
@@ -12329,7 +12331,7 @@ var cookieCutscene2 = (function() {
                 var PLAYER_RAMP = 1;
                 var PLAYER_CLIMB = 2;
                 var PLAYER_MEET = 3;
-
+                     
                 return {
                     init: function() {
                         // reset frames
@@ -13123,11 +13125,11 @@ var vcr = (function() {
     ];
 
     // This is the number of "footprint" frames to display along the seek direction around a player
-    // to create the rewind/forward blurring.
+    // to create the rewind/forward blurring.  
     // This is also inversely used to determine the number of footprint frames to display OPPOSITE the seek direction
     // around a player.
     //
-    // For example:
+    // For example: 
     //   nextFrames = speedPrints[speedIndex];
     //   prevFrames = speedPrints[speedCount-1-speedIndex];
     var speedPrints = [
@@ -13476,7 +13478,7 @@ var vcr = (function() {
 
             var backupAlpha = ctx.globalAlpha;
             ctx.globalAlpha = 0.2;
-
+            
             var t = start;
             var step = speedPrintStep[speedIndex];
             if (start > end) {
