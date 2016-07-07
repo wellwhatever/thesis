@@ -3182,7 +3182,12 @@ var initRenderer = function(){
         },
 
         clearMapFrame: function() {
-            ctx.fillStyle = "#000";
+            ctx.fillStyle = "rgba(250,229,229,0.5)";//rgba(250,229,229,0.8)
+            ctx.fillRect(-mapPad-1,-mapPad-1,mapWidth+1,mapHeight+1);
+        },
+
+        clearScreen: function() {
+            ctx.fillStyle = "rgba(250,229,229,0.2)";//rgba(250,229,229,0.8)
             ctx.fillRect(-1,-1,mapWidth+1,mapHeight+1);
         },
 
@@ -3834,126 +3839,54 @@ var initRenderer = function(){
                 this.erasePellet(x,y,isTranslated);
             }
             else if (tile == '.') {
-                bgCtx.fillStyle = map.pelletColor;
-                bgCtx.translate(0.5, 0.5);
-                this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
-                bgCtx.translate(-0.5, -0.5);
+              var myrandom=Math.round(Math.random()*3)
+              var colorPellet=new Array()
+              colorPellet[0]= map.pelletColor
+              colorPellet[1]="#f9283c"
+              colorPellet[2]="#0f8e2a"
+              colorPellet[3]="#0e68c5"
+              bgCtx.fillStyle = colorPellet[myrandom];
+              bgCtx.translate(0.5, 0.5);
+              this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
+              bgCtx.translate(-0.5, -0.5);
             }
             else if (tile == 'o') {
 
-                //pellet energizer permen
+              //pellet energizer permen yang baru
+              bgCtx.fillStyle = map.pelletColor;
+              bgCtx.beginPath();
+              bgCtx.moveTo(x*tileSize+midTile.x,y*tileSize+midTile.y-2.2);
+              bgCtx.lineTo(x*tileSize+midTile.x+3,y*tileSize+midTile.y-1.5);
+              bgCtx.lineTo(x*tileSize+midTile.x+3.5,y*tileSize+midTile.y-0.7);
+              bgCtx.lineTo(x*tileSize+midTile.x+4.2,y*tileSize+midTile.y+1);
+              bgCtx.lineTo(x*tileSize+midTile.x+4.2,y*tileSize+midTile.y+3.9);
+              bgCtx.lineTo(x*tileSize+midTile.x+2.5,y*tileSize+midTile.y+4.4);
+              bgCtx.lineTo(x*tileSize+midTile.x,y*tileSize+midTile.y+4.5);
 
-                bgCtx.fillStyle = map.pelletColor;
-                bgCtx.beginPath();
-                bgCtx.moveTo(x*tileSize+midTile.x+5,y*tileSize+midTile.y-5);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-5);
-                bgCtx.lineTo(x*tileSize+midTile.x+6,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-1,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2,y*tileSize+midTile.y+6);
-                bgCtx.lineTo(x*tileSize+midTile.x-5,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-5,y*tileSize+midTile.y+5);
+              bgCtx.moveTo(x*tileSize+midTile.x,y*tileSize+midTile.y-2.2);
+              bgCtx.lineTo(x*tileSize+midTile.x-3,y*tileSize+midTile.y-1.5);
+              bgCtx.lineTo(x*tileSize+midTile.x-3.5,y*tileSize+midTile.y-0.7);
+              bgCtx.lineTo(x*tileSize+midTile.x-4.2,y*tileSize+midTile.y+1);
+              bgCtx.lineTo(x*tileSize+midTile.x-4.2,y*tileSize+midTile.y+3.9);
+              bgCtx.lineTo(x*tileSize+midTile.x-2.5,y*tileSize+midTile.y+4.4);
+              bgCtx.lineTo(x*tileSize+midTile.x,y*tileSize+midTile.y+4.5);
 
-                bgCtx.moveTo(x*tileSize+midTile.x-5,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-6,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+1);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+0.5,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+1,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+2,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+2,y*tileSize+midTile.y-6);
-                bgCtx.lineTo(x*tileSize+midTile.x+5,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+5,y*tileSize+midTile.y-5);
+              bgCtx.fill();
 
-                bgCtx.fill();
 
-                bgCtx.fillStyle = "#f00";
-                bgCtx.beginPath();
-                bgCtx.arc(x*tileSize+midTile.x+1.5, y*tileSize+midTile.y-1.5, 1.5, 0, 2 * Math.PI);
-                bgCtx.arc(x*tileSize+midTile.x, y*tileSize+midTile.y, 1.5, 0, 2 * Math.PI);
-                bgCtx.arc(x*tileSize+midTile.x-1.5, y*tileSize+midTile.y+1.5, 1.5, 0, 2 * Math.PI);
-                bgCtx.fill();
-                /*
-
-                //untuk membuat energizer beer
-                //layer gelas
-                var a = 1;
-                bgCtx.fillStyle = "#fbc30a";
-                bgCtx.beginPath();
-                bgCtx.moveTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4+a,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y+4);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-3.5+a,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y+4);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#000";
-                bgCtx.moveTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+3+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+3+a,y*tileSize+midTile.y+1);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y+1);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y-1);
-                bgCtx.fill();
-
-                //layer shadow gelas
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#a66a05"; //a66a05
-                bgCtx.moveTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+1+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+1+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#a66a05"; //a66a05
-                bgCtx.moveTo(x*tileSize+midTile.x-2.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-2.5+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-2.5+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-
-                //layer beersuds
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#fff";
-                bgCtx.moveTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-3+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-3+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-1.5+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y-1.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+0.5+a,y*tileSize+midTile.y-1.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+1+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+2.5+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+2.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y-2.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+0.5+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-1.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-2+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-3+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-3.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-                */
-                //bgCtx.arc(x*tileSize+midTile.x+0.5,y*tileSize+midTile.y,this.energizerSize/2,0,Math.PI*2);
-                //bgCtx.fill();
+              bgCtx.strokeStyle = "#e6e905";
+              bgCtx.beginPath();
+              bgCtx.moveTo(x*tileSize+midTile.x-3.2,y*tileSize+midTile.y);
+              bgCtx.lineTo(x*tileSize+midTile.x-3.9,y*tileSize+midTile.y+1);
+              bgCtx.lineTo(x*tileSize+midTile.x-3,y*tileSize+midTile.y+1.2);
+              bgCtx.lineTo(x*tileSize+midTile.x-2,y*tileSize+midTile.y-0.9);
+              bgCtx.lineTo(x*tileSize+midTile.x-1,y*tileSize+midTile.y-1.1);
+              bgCtx.lineTo(x*tileSize+midTile.x,y*tileSize+midTile.y+1.2);
+              bgCtx.lineTo(x*tileSize+midTile.x+1,y*tileSize+midTile.y+1.1);
+              bgCtx.lineTo(x*tileSize+midTile.x+2,y*tileSize+midTile.y-1.1);
+              bgCtx.lineTo(x*tileSize+midTile.x+3,y*tileSize+midTile.y-1);
+              bgCtx.lineTo(x*tileSize+midTile.x+3.7,y*tileSize+midTile.y+1);
+              bgCtx.stroke();
             }
             if (!isTranslated) {
                 bgCtx.translate(-mapPad,-mapPad);
@@ -4178,6 +4111,7 @@ var hud = (function(){
             inGameMenu.draw(ctx);
             vcr.draw(ctx);
         },
+        //disable ingame menu button
         isValidState: function() {
             return (
                 state == playState ||
@@ -4698,6 +4632,7 @@ var inGameMenu = (function() {
         showMainMenu();
         vcr.onHudDisable();
     });
+
     btn.setText("MENU");
     btn.setFont(tileSize+"px ArcadeR","#F00");
 
@@ -4821,6 +4756,7 @@ var inGameMenu = (function() {
     };
 
     return {
+
         onHudEnable: function() {
             btn.enable();
         },
@@ -4852,6 +4788,7 @@ var inGameMenu = (function() {
         getMenuButton: function() {
             return btn;
         },
+
     };
 })();
 //@line 1 "src/sprites.js"
@@ -11088,6 +11025,7 @@ var finishState = (function(){
 ////////////////////////////////////////////////////
 // Game Over state
 // (state when player has lost last life)
+
 var overState = (function() {
 
     var exitTo = function(s,fade) {
@@ -11103,13 +11041,9 @@ var overState = (function() {
             practiceMode = false;
             turboMode = false;
             newGameState.setStartLevel(1);
-            var win = window.open('https://docs.google.com/forms/d/1qenSjXoMS8-GFORo0i6d4JHzjA0amcqb4jKGcSmR1Qk/viewform?edit_requested=true','C2');
+            var win = window.open('https://docs.google.com/forms/d/1qenSjXoMS8-GFORo0i6d4JHzjA0amcqb4jKGcSmR1Qk/viewform?edit_requested=true','Form survey C2');
         });
-    menu.addSpacer(0.5);
-    menu.addTextButton("PLAY AGAIN",
-        function() {
-            switchState(newGameState,60);
-        });
+
 
 
     return {
@@ -11128,7 +11062,6 @@ var overState = (function() {
         },
     };
 })();
-
 //@line 1 "src/input.js"
 //////////////////////////////////////////////////////////////////////////////////////
 // Input

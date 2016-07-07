@@ -2535,15 +2535,15 @@ var atlas = (function(){
                 }
             }
         };
-
+        //mengganti warna ghost
         row++;
         drawGhostCells(row, "#FF0000");
         row++;
-        drawGhostCells(row, "#FFB8FF");
+        drawGhostCells(row, "#7419ba");
         row++;
-        drawGhostCells(row, "#00FFFF");
+        drawGhostCells(row, "#1043a0");
         row++;
-        drawGhostCells(row, "#FFB851");
+        drawGhostCells(row, "#3d870c");
 
         row++;
         // draw disembodied eyes
@@ -3103,7 +3103,7 @@ var initRenderer = function(){
 
     var beginMapFrame = function() {
       //mengganti warna background color
-        bgCtx.fillStyle = "#000";
+        bgCtx.fillStyle = "#fae5e5";
         bgCtx.fillRect(0,0,mapWidth,mapHeight);
         bgCtx.translate(mapPad, mapPad);
     };
@@ -3154,7 +3154,7 @@ var initRenderer = function(){
             ctx.save();
 
             // clear margin area
-            ctx.fillStyle = "#000";
+            ctx.fillStyle = "#fae5e5";
             (function(w,h,p){
                 ctx.fillRect(0,0,w,p+1);
                 ctx.fillRect(0,p,p,h-2*p);
@@ -3182,7 +3182,12 @@ var initRenderer = function(){
         },
 
         clearMapFrame: function() {
-            ctx.fillStyle = "#000";
+            ctx.fillStyle = "rgba(250,229,229,0.5)";//rgba(250,229,229,0.8)
+            ctx.fillRect(-mapPad-1,-mapPad-1,mapWidth+1,mapHeight+1);
+        },
+
+        clearScreen: function() {
+            ctx.fillStyle = "rgba(250,229,229,0.2)";//rgba(250,229,229,0.8)
             ctx.fillRect(-1,-1,mapWidth+1,mapHeight+1);
         },
 
@@ -3815,7 +3820,7 @@ var initRenderer = function(){
                 bgCtx.translate(mapPad,mapPad);
             }
             //mengganti warna background pellet yang dimakan
-            bgCtx.fillStyle = "#000";
+            bgCtx.fillStyle = "#fae5e5";
             var i = map.posToIndex(x,y);
             var size = map.tiles[i] == 'o' ? this.energizerSize : this.pelletSize;
             this.drawCenterTileSq(bgCtx,x,y,size+4);
@@ -3834,126 +3839,54 @@ var initRenderer = function(){
                 this.erasePellet(x,y,isTranslated);
             }
             else if (tile == '.') {
-                bgCtx.fillStyle = map.pelletColor;
-                bgCtx.translate(0.5, 0.5);
-                this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
-                bgCtx.translate(-0.5, -0.5);
+              var myrandom=Math.round(Math.random()*3)
+              var colorPellet=new Array()
+              colorPellet[0]= map.pelletColor
+              colorPellet[1]="#f9283c"
+              colorPellet[2]="#0f8e2a"
+              colorPellet[3]="#0e68c5"
+              bgCtx.fillStyle = colorPellet[myrandom];
+              bgCtx.translate(0.5, 0.5);
+              this.drawCenterTileSq(bgCtx,x,y,this.pelletSize);
+              bgCtx.translate(-0.5, -0.5);
             }
             else if (tile == 'o') {
 
-                //pellet energizer permen
-                /*
-                bgCtx.fillStyle = map.pelletColor;
-                bgCtx.beginPath();
-                bgCtx.moveTo(x*tileSize+midTile.x+5,y*tileSize+midTile.y-5);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-5);
-                bgCtx.lineTo(x*tileSize+midTile.x+6,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+4.5,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-1,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2,y*tileSize+midTile.y+6);
-                bgCtx.lineTo(x*tileSize+midTile.x-5,y*tileSize+midTile.y+4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-5,y*tileSize+midTile.y+5);
+              //pellet energizer permen yang baru
+              bgCtx.fillStyle = map.pelletColor;
+              bgCtx.beginPath();
+              bgCtx.moveTo(x*tileSize+midTile.x,y*tileSize+midTile.y-2.2);
+              bgCtx.lineTo(x*tileSize+midTile.x+3,y*tileSize+midTile.y-1.5);
+              bgCtx.lineTo(x*tileSize+midTile.x+3.5,y*tileSize+midTile.y-0.7);
+              bgCtx.lineTo(x*tileSize+midTile.x+4.2,y*tileSize+midTile.y+1);
+              bgCtx.lineTo(x*tileSize+midTile.x+4.2,y*tileSize+midTile.y+3.9);
+              bgCtx.lineTo(x*tileSize+midTile.x+2.5,y*tileSize+midTile.y+4.4);
+              bgCtx.lineTo(x*tileSize+midTile.x,y*tileSize+midTile.y+4.5);
 
-                bgCtx.moveTo(x*tileSize+midTile.x-5,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-6,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+1);
-                bgCtx.lineTo(x*tileSize+midTile.x-4.5,y*tileSize+midTile.y+0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+0.5,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+1,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+2,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+2,y*tileSize+midTile.y-6);
-                bgCtx.lineTo(x*tileSize+midTile.x+5,y*tileSize+midTile.y-4.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+5,y*tileSize+midTile.y-5);
+              bgCtx.moveTo(x*tileSize+midTile.x,y*tileSize+midTile.y-2.2);
+              bgCtx.lineTo(x*tileSize+midTile.x-3,y*tileSize+midTile.y-1.5);
+              bgCtx.lineTo(x*tileSize+midTile.x-3.5,y*tileSize+midTile.y-0.7);
+              bgCtx.lineTo(x*tileSize+midTile.x-4.2,y*tileSize+midTile.y+1);
+              bgCtx.lineTo(x*tileSize+midTile.x-4.2,y*tileSize+midTile.y+3.9);
+              bgCtx.lineTo(x*tileSize+midTile.x-2.5,y*tileSize+midTile.y+4.4);
+              bgCtx.lineTo(x*tileSize+midTile.x,y*tileSize+midTile.y+4.5);
 
-                bgCtx.fill();
+              bgCtx.fill();
 
-                bgCtx.fillStyle = "#f00";
-                bgCtx.beginPath();
-                bgCtx.arc(x*tileSize+midTile.x+1.5, y*tileSize+midTile.y-1.5, 1.5, 0, 2 * Math.PI);
-                bgCtx.arc(x*tileSize+midTile.x, y*tileSize+midTile.y, 1.5, 0, 2 * Math.PI);
-                bgCtx.arc(x*tileSize+midTile.x-1.5, y*tileSize+midTile.y+1.5, 1.5, 0, 2 * Math.PI);
-                bgCtx.fill();
-                */
 
-                //untuk membuat energizer beer
-                //layer gelas
-                var a = 1;
-                bgCtx.fillStyle = "#fbc30a";
-                bgCtx.beginPath();
-                bgCtx.moveTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+4+a,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y+2);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y+4);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-3.5+a,y*tileSize+midTile.y+5);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y+4);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#000";
-                bgCtx.moveTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+3+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+3+a,y*tileSize+midTile.y+1);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y+1);
-                bgCtx.lineTo(x*tileSize+midTile.x+2+a,y*tileSize+midTile.y-1);
-                bgCtx.fill();
-
-                //layer shadow gelas
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#a66a05"; //a66a05
-                bgCtx.moveTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+1+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+1+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#a66a05"; //a66a05
-                bgCtx.moveTo(x*tileSize+midTile.x-2.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-2.5+a,y*tileSize+midTile.y+3);
-                bgCtx.lineTo(x*tileSize+midTile.x-2.5+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-
-                //layer beersuds
-                bgCtx.beginPath();
-                bgCtx.fillStyle = "#fff";
-                bgCtx.moveTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-3+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-3+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x-2+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-1.5+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x-0.5+a,y*tileSize+midTile.y-1.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+0.5+a,y*tileSize+midTile.y-1.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+1+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y-0.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+2.5+a,y*tileSize+midTile.y-1);
-                bgCtx.lineTo(x*tileSize+midTile.x+2.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x+1.5+a,y*tileSize+midTile.y-2.5);
-                bgCtx.lineTo(x*tileSize+midTile.x+0.5+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-1+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-1.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-2+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-3+a,y*tileSize+midTile.y-3);
-                bgCtx.lineTo(x*tileSize+midTile.x-3.5+a,y*tileSize+midTile.y-2);
-                bgCtx.lineTo(x*tileSize+midTile.x-4+a,y*tileSize+midTile.y-2);
-                bgCtx.fill();
-
-                //bgCtx.arc(x*tileSize+midTile.x+0.5,y*tileSize+midTile.y,this.energizerSize/2,0,Math.PI*2);
-                //bgCtx.fill();
+              bgCtx.strokeStyle = "#e6e905";
+              bgCtx.beginPath();
+              bgCtx.moveTo(x*tileSize+midTile.x-3.2,y*tileSize+midTile.y);
+              bgCtx.lineTo(x*tileSize+midTile.x-3.9,y*tileSize+midTile.y+1);
+              bgCtx.lineTo(x*tileSize+midTile.x-3,y*tileSize+midTile.y+1.2);
+              bgCtx.lineTo(x*tileSize+midTile.x-2,y*tileSize+midTile.y-0.9);
+              bgCtx.lineTo(x*tileSize+midTile.x-1,y*tileSize+midTile.y-1.1);
+              bgCtx.lineTo(x*tileSize+midTile.x,y*tileSize+midTile.y+1.2);
+              bgCtx.lineTo(x*tileSize+midTile.x+1,y*tileSize+midTile.y+1.1);
+              bgCtx.lineTo(x*tileSize+midTile.x+2,y*tileSize+midTile.y-1.1);
+              bgCtx.lineTo(x*tileSize+midTile.x+3,y*tileSize+midTile.y-1);
+              bgCtx.lineTo(x*tileSize+midTile.x+3.7,y*tileSize+midTile.y+1);
+              bgCtx.stroke();
             }
             if (!isTranslated) {
                 bgCtx.translate(-mapPad,-mapPad);
@@ -3964,7 +3897,7 @@ var initRenderer = function(){
         drawScore: function() {
             ctx.font = tileSize + "px ArcadeR";
             ctx.textBaseline = "top";
-            ctx.fillStyle = "#FFF";
+            ctx.fillStyle = "#f00";
 
             ctx.textAlign = "right";
             ctx.fillText("1UP", 6*tileSize, 0);
@@ -4178,6 +4111,7 @@ var hud = (function(){
             inGameMenu.draw(ctx);
             vcr.draw(ctx);
         },
+        //disable ingame menu button
         isValidState: function() {
             return (
                 state == playState ||
@@ -4302,8 +4236,8 @@ var Button = function(x,y,w,h,onclick) {
     // icon attributes
     this.frame = 0;
 
-    this.borderBlurColor = "#333";
-    this.borderFocusColor = "#EEE";
+    this.borderBlurColor = "#fff";
+    this.borderFocusColor = "#f00";
 
     this.isSelected = false;
 
@@ -4459,7 +4393,7 @@ Button.prototype = {
         ctx.lineTo(x+r,y+h);
         ctx.quadraticCurveTo(x,y+h,x,y+h-r);
         ctx.closePath();
-        ctx.fillStyle = "rgba(0,0,0,0.5)";
+        ctx.fillStyle = "rgba(247,136,136,0.5)";
         ctx.fill();
         ctx.strokeStyle = this.isSelected && this.onclick ? this.borderFocusColor : this.borderBlurColor;
         ctx.stroke();
@@ -4477,7 +4411,7 @@ Button.prototype = {
         // draw text
         if (this.msg) {
             ctx.font = this.font;
-            ctx.fillStyle = this.isSelected && this.onclick ? this.fontcolor : "#777";
+            ctx.fillStyle = this.isSelected && this.onclick ? this.fontcolor : "#f00";
             ctx.textBaseline = "middle";
             ctx.textAlign = "center";
             //ctx.fillText(this.msg, 2*tileSize+2*this.pad+this.x, this.y + this.h/2 + 1);
@@ -4660,7 +4594,7 @@ Menu.prototype = {
             ctx.font = tileSize+"px ArcadeR";
             ctx.textBaseline = "middle";
             ctx.textAlign = "center";
-            ctx.fillStyle = "#FFF";
+            ctx.fillStyle = "#F00";
             ctx.fillText(this.title,this.x + this.w/2, this.y+this.pad + this.h/2);
         }
         var i;
@@ -4698,11 +4632,12 @@ var inGameMenu = (function() {
         showMainMenu();
         vcr.onHudDisable();
     });
+
     btn.setText("MENU");
-    btn.setFont(tileSize+"px ArcadeR","#FFF");
+    btn.setFont(tileSize+"px ArcadeR","#F00");
 
     // confirms a menu action
-    var confirmMenu = new Menu("QUESTION?",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var confirmMenu = new Menu("QUESTION?",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#f00");
     confirmMenu.addTextButton("YES", function() {
         confirmMenu.disable();
         confirmMenu.onConfirm();
@@ -4725,7 +4660,7 @@ var inGameMenu = (function() {
     };
 
     // regular menu
-    var menu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
+    var menu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#F00");
     menu.addTextButton("RESUME", function() {
         menu.disable();
     });
@@ -4737,7 +4672,7 @@ var inGameMenu = (function() {
     menu.backButton = menu.buttons[0];
 
     // practice menu
-    var practiceMenu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#F00");
+    var practiceMenu = new Menu("PAUSED",2*tileSize,5*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     practiceMenu.addTextButton("RESUME", function() {
         hideMainMenu();
         vcr.onHudEnable();
@@ -4821,6 +4756,7 @@ var inGameMenu = (function() {
     };
 
     return {
+
         onHudEnable: function() {
             btn.enable();
         },
@@ -4835,7 +4771,7 @@ var inGameMenu = (function() {
         draw: function(ctx) {
             var m = getVisibleMenu();
             if (m) {
-                ctx.fillStyle = "rgba(0,0,0,0.8)";
+                ctx.fillStyle = "rgba(250,229,229,0.8)";
                 ctx.fillRect(-mapPad-1,-mapPad-1,mapWidth+1,mapHeight+1);
                 m.draw(ctx);
             }
@@ -4852,6 +4788,7 @@ var inGameMenu = (function() {
         getMenuButton: function() {
             return btn;
         },
+
     };
 })();
 //@line 1 "src/sprites.js"
@@ -6305,7 +6242,7 @@ var drawPacmanSprite = function(ctx,x,y,dirEnum,angle,mouthShift,scale,centerShi
     if (alpha == undefined) alpha = 1;
 
     if (color == undefined) {
-        color = "rgba(255,255,0," + alpha + ")";
+        color = "rgba(199,28,129," + alpha + ")";
     }
 
     ctx.save();
@@ -7781,7 +7718,7 @@ Ghost.prototype.onEnergized = function() {
     if (this.mode != GHOST_GOING_HOME && this.mode != GHOST_ENTERING_HOME) {
       //kalo true ghostnya takut ketika energized kemakan
       //kalo false ghostnya ngga takut, tapi aku yang takut aaaaaaa......
-        this.scared = true;
+        this.scared = false;
         this.targetting = undefined;
     }
 };
@@ -9521,12 +9458,12 @@ var fadeNextState = function (prevState, nextState, frameDuration, continueUpdat
             if (frames < midFrame) {
                 if (prevState) {
                     prevState.draw();
-                    renderer.setOverlayColor("rgba(0,0,0,"+t+")");
+                    renderer.setOverlayColor("rgba(250,229,229,"+t+")");
                 }
             }
             else if (frames > midFrame) {
                 nextState.draw();
-                renderer.setOverlayColor("rgba(0,0,0,"+(1-t)+")");
+                renderer.setOverlayColor("rgba(250,229,229,"+(1-t)+")");
             }
         },
         update: function() {
@@ -11088,6 +11025,7 @@ var finishState = (function(){
 ////////////////////////////////////////////////////
 // Game Over state
 // (state when player has lost last life)
+
 var overState = (function() {
 
     var exitTo = function(s,fade) {
@@ -11103,13 +11041,9 @@ var overState = (function() {
             practiceMode = false;
             turboMode = false;
             newGameState.setStartLevel(1);
-            var win = window.open('https://docs.google.com/forms/d/1yMa4O31tzpP5RHou8vib6h6gmZ8s7LT5p-NKXPJ3KJU/viewform?edit_requested=true','L1');
+            var win = window.open('https://docs.google.com/forms/d/1qenSjXoMS8-GFORo0i6d4JHzjA0amcqb4jKGcSmR1Qk/viewform?edit_requested=true','Form survey C2');
         });
-    menu.addSpacer(0.5);
-    menu.addTextButton("PLAY AGAIN",
-        function() {
-            switchState(newGameState,60);
-        });
+
 
 
     return {
@@ -11128,7 +11062,6 @@ var overState = (function() {
         },
     };
 })();
-
 //@line 1 "src/input.js"
 //////////////////////////////////////////////////////////////////////////////////////
 // Input
@@ -12691,9 +12624,9 @@ var mapPacman = new Map(28, 36, (
 
 mapPacman.name = "Pac-Man";
 //mapPacman.wallStrokeColor = "#923"; // from Pac-Man Plus
-mapPacman.wallStrokeColor = "#6d1483"; // from original
-mapPacman.wallFillColor = "#ebb1fa";
-mapPacman.pelletColor = "#ffea00";
+mapPacman.wallStrokeColor = "#f00"; // from original
+mapPacman.wallFillColor = "#ea4e4e";
+mapPacman.pelletColor = "#390505";
 mapPacman.constrainGhostTurns = function(tile,openTiles) {
     // prevent ghost from turning up at these tiles
     if ((tile.x == 12 || tile.x == 15) && (tile.y == 14 || tile.y == 26)) {

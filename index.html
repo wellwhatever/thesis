@@ -8,27 +8,33 @@
   function randomlinks(){
     var myrandom=Math.round(Math.random()*3)
     var links=new Array()
-    links[0]="apps/pac-b1.htm"
-    links[1]="apps/pac-b2.htm"
-    links[2]="apps/pac-p1.htm"
-    links[3]="apps/pac-p2.htm"
+    links[0]="apps/pac-c1.htm"
+    links[1]="apps/can-c2.html"
+    links[2]="apps/pac-l1.htm"
+    links[3]="apps/can-l2.html"
 
     window.location=links[myrandom]
   }
+
+  function overlay() {
+	el = document.getElementById("overlay");
+	el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+
+function overlayHidden() {
+el = document.getElementById("overlay");
+el.style.visibility = (el.style.visibility == "hidden") ? "visible" : "hidden";
+}
+
   </script>
 
 </head>
 <body>
   <div class="container-grid">
-    <div class="container-left">
-      <div class="middle-align">
-        <img src="apps/picture/logo-beer-c.png" width="250px"></img>
-        <img src="apps/picture/logo-beer-bw.png" width="250px"></img>
-      </div>
-    </div>
+
     <div class="container">
       <div class="container-fill">
-        <h2>So-Pacman Game</h2>
+
         <p>
           Kepada Yth.</br>
           Responden</br>
@@ -47,16 +53,30 @@
           Institute of International Management, National Cheng Kung University, Taiwan
         </p>
         <form>
-          <input type="button" value="PLAY" onClick="randomlinks()" class="button-play">
+          <input type="button" value="NEXT" onClick="overlay()" class="button-play">
         </form>
       </div>
     </div>
-    <div class="container-right">
-      <div class="middle-align">
-        <img src="apps/picture/logo-choco-c.png" width="250px"></img>
-        <img src="apps/picture/logo-choco-bw.png" width="250px"></img>
-      </div>
-    </div>
+
   </div>
+
+<div id="overlay">
+  <div class="container-grid">
+  <div class="container-modal">
+     <div class="container-fill">
+          <p class="pmodal"></br></br></br>Chocoball adalah merek permen coklat. <b>Dalam upaya mengiklanklan produknya di Indonesia, Chocoball membuat advergame di websitenya</b>.
+            Advergame itu sendiri adalah sebuah game yang sengaja didesain dan dibuat untuk mengiklankan sebuah merek, produk, jasa, atau ide.
+            Melalui game ini pesan pemasaran terkait dengan merek, produk, jasa, atau ide disampaikan kepada konsumen.
+            Anda diminta untuk mengunjungi website Chocoball dan memainkan advergame yang terdapat pada website Chocoball.
+          </br></br></br></p>
+          <form>
+            <input type="button" value="PLAY" onClick="randomlinks()" class="button-play">
+
+          </form>
+
+     </div>
+   </div>
+ </div>
+</div>
 </body>
 </html>
