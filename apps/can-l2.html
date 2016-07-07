@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Monster Wants Candy demo</title>
+	<link href="displaystyle.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="mdl/material.min.css" rel="stylesheet" type="text/css"  media="screen,projection">
+
+	<script src="src-l2/phaser-2.0.7.min.js"></script>
+	<script src="src-l2/Boot.js"></script>
+	<script src="src-l2/Preloader.js"></script>
+	<script src="src-l2/MainMenu.js"></script>
+	<script src="src-l2/Game.js"></script>
+</head>
+<body bgcolor="#fae5e5">
+	<div class="container">
+    <div class="mdl-grid mdl-grid--no-spacing">
+      <div class="mdl-cell mdl-cell--3-col">
+          <img src="picture/woman-1.jpg" class="img-left"></img>
+      </div>
+      <div class="mdl-cell mdl-cell--6-col">
+				<script>
+				(function() {
+					// initialize the framework
+					var game = new Phaser.Game(640, 960, Phaser.AUTO, 'game');
+					// add game states
+					game.state.add('Boot', Candy.Boot);
+					game.state.add('Preloader', Candy.Preloader);
+					game.state.add('MainMenu', Candy.MainMenu);
+					game.state.add('Game', Candy.Game);
+					// start the Boot state
+					game.state.start('Boot');
+				})();
+				</script>      </div>
+      <div class="mdl-cell mdl-cell--3-col">
+          <img src="picture/side-choco-l2.jpg" class="img-right"></img>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

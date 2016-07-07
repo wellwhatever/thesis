@@ -11041,7 +11041,7 @@ var overState = (function() {
             practiceMode = false;
             turboMode = false;
             newGameState.setStartLevel(1);
-            var win = window.open('https://docs.google.com/forms/d/1s7_OfpEL9xabUAwpfoErShLSFmuO9IRKILm8TDSV4UQ/viewform?edit_requested=true','Form survey C1');
+            var win = window.open(' https://docs.google.com/forms/d/1souOi0H5f5nk6v4yCcoAzNNszVcYYQDOiWexQdCvrJE/','Form survey C1');
         });
 
 
